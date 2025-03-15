@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "sp-fx-sp-list-crud-web-parts-client-side-solution",
+    "id": "761ba7eb-e698-405b-84ae-d9dfe64539a9",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.20.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "SPFxSPListCrudWebParts description"
+      },
+      "longDescription": {
+        "default": "SPFxSPListCrudWebParts description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "sp-fx-sp-list-crud-web-parts Feature",
+        "description": "The feature that activates elements of the sp-fx-sp-list-crud-web-parts solution.",
+        "id": "71960358-b00e-40d0-a7ae-268a98fcf59d",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/sp-fx-sp-list-crud-web-parts.sppkg"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "whichFolder": "subdir",
+    "solutionName": "SPFxSPListCrudWebParts",
+    "componentType": "webpart",
+    "template": "minimal",
+    "componentName": "PnPSPCrud",
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "18.20.3",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.24.0"
+    },
+    "version": "1.20.0",
+    "libraryName": "sp-fx-sp-list-crud-web-parts",
+    "libraryId": "761ba7eb-e698-405b-84ae-d9dfe64539a9",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionShortDescription": "SPFxSPListCrudWebParts description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false
+  }
+}
