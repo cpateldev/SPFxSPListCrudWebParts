@@ -2,17 +2,18 @@ import { Log } from "@microsoft/sp-core-library";
 import { Version } from "@microsoft/sp-core-library";
 import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
 // Import the getGraph and getSP functions from pnpjsConfig.ts file.
-import { getSP } from "../pnpJSConfig";
+import { getSP, getGraph } from "../pnpJSConfig";
 import { SPFI } from "@pnp/sp";
+import { GraphFI } from "@pnp/graph";
+import "@pnp/graph/users";
 import styles from "./PnPspCrudWebPart.module.scss";
 import { IListItem } from "../Common/IListItem";
 
 export interface IPnPspCrudWebPartProps {}
 const LOG_SOURCE: string = "PnPspCrudWebPart Web Part";
-// eslint-disable-next-line no-var
-var _sp: SPFI;
-// eslint-disable-next-line no-var
-//let graph: GraphFI;
+
+let _sp: SPFI;
+let _graph: GraphFI;
 
 export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWebPartProps> {
   public render(): void {
@@ -23,8 +24,8 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
         Log.info(LOG_SOURCE, "Rendered");
       })
       .catch((e) => {
-        console.error(e);
-        Log.error(LOG_SOURCE, e);
+        console.error(e.message + e.stack);
+        Log.error(LOG_SOURCE, e.message + e.stack);
       });
     //this.domElement.innerHTML = `<div class="${ styles.pnPspCrud }"></div>`;
   }
@@ -33,7 +34,7 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
     // Initialize our _sp object that we can then use in other packages without having to pass around the context.
     // Check out pnpjsConfig.ts for an example of a project setup file.
     _sp = getSP(this.context);
-    //graph = getGraph(this.context);
+    _graph = getGraph(this.context);
     return super.onInit();
   }
 
@@ -45,10 +46,34 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
     const sourceItem: IListItem = await _sp.web.lists
       .getByTitle("Invoices")
       .items.getById(1)();
+
     Log.info(LOG_SOURCE, "Success");
     if (!!sourceItem) {
       Log.info(LOG_SOURCE, `Item Title: ${sourceItem.Title}`);
-      this.domElement.innerHTML = `<div class="${styles.pnPspCrud}">Item Title: ${sourceItem.Title}</div>`;
+      this.domElement.innerHTML += `<div class="${styles.pnPspCrud}">Item Title: ${sourceItem.Title}</div>`;
+    }
+
+    Log.info(LOG_SOURCE, "Getting User...");
+    /*
+    const user = await _graph.me();
+    if (!!user) {
+      Log.info(LOG_SOURCE, `User: ${user.displayName}`);
+      this.domElement.innerHTML += `<div class="${styles.pnPspCrud}">User: ${user.displayName}</div>`;
+    }
+    */
+    this.getCurrentUser().catch((error) => {
+      Log.error(LOG_SOURCE, error);
+    });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public async getCurrentUser(): Promise<void> {    
+    const currentUser = await _graph.me().catch((error) => {
+      Log.error(LOG_SOURCE, error);
+    });
+
+    if (currentUser) {
+      this.domElement.innerHTML += `<div class="${styles.pnPspCrud}">User: ${currentUser.displayName}</div>`;
     }
   }
 }
