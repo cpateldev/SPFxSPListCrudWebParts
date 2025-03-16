@@ -5,7 +5,6 @@ import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
 import { getSP, getGraph } from "../pnpJSConfig";
 import { SPFI } from "@pnp/sp";
 import { GraphFI } from "@pnp/graph";
-import "@pnp/graph/users";
 import styles from "./PnPspCrudWebPart.module.scss";
 import { IListItem } from "../Common/IListItem";
 
