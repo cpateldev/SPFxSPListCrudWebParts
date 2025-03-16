@@ -9,10 +9,19 @@
           "manifest": "./src/webparts/pnPspCrud/PnPspCrudWebPart.manifest.json"
         }
       ]
+    },
+    "pnp-js-react-crud-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/pnpJsReactCrud/PnpJsReactCrudWebPart.js",
+          "manifest": "./src/webparts/pnpJsReactCrud/PnpJsReactCrudWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "PnPspCrudWebPartStrings": "lib/webparts/pnPspCrud/loc/{locale}.js"
+    "PnPspCrudWebPartStrings": "lib/webparts/pnPspCrud/loc/{locale}.js",
+    "PnpJsReactCrudWebPartStrings": "lib/webparts/pnpJsReactCrud/loc/{locale}.js"
   }
 }
