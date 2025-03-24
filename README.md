@@ -1,9 +1,9 @@
 # SPFx SPO List CRUD Web Parts
 
 ## Table of Contents
-
 - [Summary](#summary)
 - [Features](#features)
+- [Compatibility](#compatibility)
 - [Prerequisites](#prerequisites)
 - [Applies to](#applies-to)
 - [Authors](#authors)
@@ -11,9 +11,8 @@
 - [Minimal Path to Awesome](#minimal-path-to-awesome)
   - [Install react and reactdom packages](#install-react-and-reactdom-packages)
 - [Debugging](#debugging)
+- [Solution Structure](#solution-structure)
 - [References](#references)
-- [Graph Permissions](#graph-permissions)
-  - [Grant required graph permissions in Azure Portal](#grant-required-graph-permissions-in-azure-portal)
 - [Disclaimer](#disclaimer)
 
 ## Summary
@@ -54,6 +53,9 @@ This extension illustrates the following concepts:
 ![Does not work with SharePoint 2016 (Feature Pack 2)](https://img.shields.io/badge/SharePoint%20Server%202016%20(Feature%20Pack%202)-Incompatible-red.svg "SharePoint Server 2016 Feature Pack 2 requires SPFx 1.1")
 ![Local Workbench compatible](https://img.shields.io/badge/Local%20Workbench-compatible-green.svg)
 ![Hosted Workbench Compatible](https://img.shields.io/badge/Hosted%20Workbench-Compatible-green.svg)
+
+### Github repo
+![Git Repo Status](https://img.shields.io/github/checks-status/:user/:repo/:branch)
 
 For more information about SPFx compatibility, please refer to <https://aka.ms/spfx-matrix>
 
@@ -120,23 +122,8 @@ npm install @pnp/sp --save
 ```URL
 https://m365devlab01.sharepoint.com/sites/M365AppDev/_layouts/workbench.aspx
 ```
-## Graph Permissions
 
-### Grant required graph permissions in Azure Portal
-![alt text](./docs/image.png)
-
-Azure Portal App Registration: `SharePoint Online Client Extensibility Web Application Principal` or new `SharePoint Online Client Web Extensibility`
-
-> Reference Article (March 10th, 2025)
->
-> [Changes on SharePoint Framework (SPFx) permission grants in Microsoft Entra ID](https://devblogs.microsoft.com/microsoft365dev/changes-on-sharepoint-framework-spfx-permission-grants-in-microsoft-entra-id/)
-
-We need to set the scope of the API to get the information from graph API.
-Open `package-solution.json` file in config directory.
-Add the below code in the `webApiPermissionRequests` array.
-
-```json
-
+```
 // for this solution.
 "webApiPermissionRequests": [
   {
@@ -180,7 +167,31 @@ OR for multiple scopes
       }
     ]    
 ```
+## Solution Structure
 
+```
+.
+├── 📁 config/                          # Configuration files
+│   ├── 📄 config.json                  # Project configuration
+│   ├── 📄 package-solution.json        # Solution package configuration
+│   └── 📄 serve.json                   # Local serve configuration
+├── 📁 docs                             # Documentation assets
+│   └── 📄 image.png                    # Graph permissions screenshot
+├── 📁 src/                             # Source code
+│   ├── 📁 webparts/                    # Web parts
+│   │   ├── 📁 pnpjsReactCrud/          # PnPJS React CRUD web part
+│   │   │   ├── 📁 components/          # React components
+│   │   │   └── 📄 PnpjsReactCrudWebPart.ts # React CRUD WebPart
+│   │   └── 📁 pnpjsSpCrud/             # PnPJS SP CRUD web part
+│   │       └── 📄 PnpjsSpCrudWebPart.ts
+│   └── 📁 common/                     # Shared code
+│       └── 📄 IListItem.ts            # Constants
+├── 📄 .gitignore                      # Git ignore file
+├── 📄 gulpfile.js                     # Gulp build file
+├── 📄 package.json                    # NPM dependencies
+├── 📄 README.md                       # Project documentation
+└── 📄 tsconfig.json                   # TypeScript configuration
+```
 ## References
 
 - [Getting started with SharePoint Framework](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
@@ -194,3 +205,14 @@ OR for multiple scopes
 **THIS CODE IS PROVIDED _AS IS_ WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
 
 [Go to TOC](#table-of-contents)
+
+## Sample Mermaid Diagram
+
+```mermaid
+graph TD;
+  A[Start] --> B{Is it working?};
+  B -- Yes --> C[Great!];
+  B -- No --> D[Check the code];
+  D --> E[Fix the issue];
+  E --> B;
+```
