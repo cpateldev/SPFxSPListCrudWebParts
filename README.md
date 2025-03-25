@@ -112,9 +112,9 @@ npm install @pnp/sp --save
 > [!WARNING]Debug solution locally
 
 ```PowerShell
-> gulp clean
-> gulp build
-> gulp serve --nobrowser
+gulp clean
+gulp build
+gulp serve --nobrowser
 ```
 
 > **Debug URL for Dev** where **`2db7bd97-c073-49ed-b9a9-13c5a5f50277`** is the extention id.
