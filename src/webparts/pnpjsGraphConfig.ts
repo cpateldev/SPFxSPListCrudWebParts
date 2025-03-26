@@ -7,6 +7,7 @@ import { LogLevel, PnPLogging } from "@pnp/logging";
 let _graph: GraphFI;
 
 export const getGraph = (context?: WebPartContext): GraphFI => {
+  // old line 1 :: if (context !== null) { was erroring out, so solution is --> // new line:: if (!!context) { OR if (context !== undefined) {
   if (!!context) {
     //You must add the @pnp/logging package to include the PnPLogging behaviour it is no longer a peer dependency
     // The LogLevel set's at what level a message will be written to the console
