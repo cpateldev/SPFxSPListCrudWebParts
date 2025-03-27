@@ -1,16 +1,16 @@
 import { SPFI } from "@pnp/sp";
-//import { Web } from "@pnp/sp/webs";
+import { Web } from "@pnp/sp/webs";
 import { ISharePointBaseRepository } from "./ISharePointBaseRepository";
-import { IListItem } from "../Common/IListItem";
+import { IListItem, IPetListItem } from "../Common/IListItem";
 import IQueryOption from "../Common/IQueryOption";
 
-export default class SharePointRepository<T extends IListItem> implements ISharePointBaseRepository<T>{
+export default class SharePointRepository<T extends IListItem | IPetListItem> implements ISharePointBaseRepository<T>{
     protected _list: import("@pnp/sp/lists").IList;
     protected _web: import("@pnp/sp/webs").IWeb;
     protected _sp: SPFI;
 
-    constructor(sp: SPFI, listTitle: string, webUrl?: string) {        
-        this._web = sp.web;
+    constructor(sp: SPFI, listTitle: string, webUrl?: string) {
+        this._web = !!webUrl ? Web([sp.web, webUrl]) : sp.web;
         this._list = this._web.lists.getByTitle(listTitle);
         this._sp = sp;
     }

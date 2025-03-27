@@ -4,9 +4,11 @@ import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
 // Import the getGraph and getSP functions from pnpjsConfig.ts file.
 import { getSP, getGraph } from "../pnpJSConfig";
 import { SPFI } from "@pnp/sp";
+import { Web } from "@pnp/sp/webs";
+
 import { GraphFI } from "@pnp/graph";
 import styles from "./PnPspCrudWebPart.module.scss";
-import { IListItem } from "../Common/IListItem";
+import { IListItem, IPetListItem } from "../Common/IListItem";
 import SharePointRepository from "../Repository/SharePointRepository";
 
 export interface IPnPspCrudWebPartProps {}
@@ -44,11 +46,61 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
   }
 
   private async _renderListAsync(): Promise<void> {
-    
+    console.log("PnPspCrudWebPart._renderListAsync");
+
+    /*
+    Call another web's list item using PnPjs
+    https://pnp.github.io/pnpjs/sp/webs/#access-a-web
+
+    The above examples show you how to use the constructor to create the base url for the Web although none of them are usable as is until you add observers. 
+    You can do so by either adding them explicitly with a using...
+
+    import { spfi, SPFx } from "@pnp/sp";
+    import { Web } from "@pnp/sp/webs";
+
+    const web1 = Web("https://tenant.sharepoint.com/sites/myweb").using(SPFx(this.context));
+
+    without line ".using(SPFx(this.context))" you will get the error 'Error: No observers registered for this request. (https://pnp.github.io/pnpjs/queryable/queryable#no-observers-registered-for-this-request)'
+    */
+    try {
+      const weburl =
+        "https://m365devlab01.sharepoint.com/sites/PowerPlatformDev";
+      //const _web = Web(weburl).using(SPFx(this.context)); // Approach 1: requires - import { SPFI } from "@pnp/sp";
+      const _web = Web([_sp.web, weburl]); // Approach 2: recommended. No need to import SPFI
+
+      const petsItem: IPetListItem = await _web.lists
+        .getByTitle("Pets")
+        .items.getById(1)();
+
+      console.log("Pets Item Title: " + petsItem.Title);
+      if (!!petsItem) {
+        Log.info(LOG_SOURCE, `Pets Item Title: ${petsItem.Title}`);
+        this.domElement.innerHTML += `<div class="${styles.pnPspCrud}">Pets Item Title:: ${petsItem.Title}</div>`;
+      }
+
+      // Call the SharePointRepository class to get one Pet item
+      const petsItem1: IPetListItem = await new SharePointRepository<IPetListItem>(
+        _sp,
+        "Pets",
+        weburl
+      ).getOne(1);
+
+      Log.info(LOG_SOURCE, "Success");
+      if (!!petsItem1) {  
+        Log.info(LOG_SOURCE, `Pets Item Title: ${petsItem1.Title}`);
+        this.domElement.innerHTML += `<div class="${styles.pnPspCrud}">SPRepo > Pets Item Title:: ${petsItem1.Title} and Breed:: ${petsItem1.Breed} </div>`;
+      }
+
+    } catch (error) {
+      console.error(error);
+      Log.error(LOG_SOURCE, error);
+      throw new Error(error);
+    }
+
     // Call _sp instance's get the item by Id
     const sourceItem: IListItem = await _sp.web.lists
       .getByTitle("Invoices")
-      .items.getById(1)();
+      .items.getById(1)();      
 
     Log.info(LOG_SOURCE, "Success");
     if (!!sourceItem) {
@@ -109,10 +161,12 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
     const camlQuery = {
       ViewXml: `<View><Query><Where><Eq><FieldRef Name='Title'/><Value Type='Text'>Invoice 1</Value></Eq></Where></Query></View>`,
     };
-    const sourceItemsByCAML: IListItem[] = await new SharePointRepository<IListItem>(
-      _sp,
-      "Invoices"
-    ).getItemsByCAMLQuery(camlQuery);
+    const sourceItemsByCAML: IListItem[] =
+      await new SharePointRepository<IListItem>(
+        _sp,
+        "Invoices"
+      ).getItemsByCAMLQuery(camlQuery);
+
     if (!!sourceItemsByCAML) {
       sourceItemsByCAML.forEach((item: IListItem) => {
         Log.info(LOG_SOURCE, `Item Title: ${item.Title}`);
