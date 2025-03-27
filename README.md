@@ -117,12 +117,9 @@ npm install @pnp/sp --save
 > gulp build
 > gulp serve --nobrowser
 > ```
->
-> **Debug URL for Dev** where **`2db7bd97-c073-49ed-b9a9-13c5a5f50277`** is the extention id.
-
-```URL
-https://m365devlab01.sharepoint.com/sites/M365AppDev/_layouts/workbench.aspx
-```
+>```URL
+> https://m365devlab01.sharepoint.com/sites/M365AppDev/_layouts/workbench.aspx
+>```
 ### Graph API Permissions
 ```
 // for this solution.
