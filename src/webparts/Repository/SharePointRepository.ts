@@ -1,10 +1,10 @@
 import { SPFI } from "@pnp/sp";
 import { Web } from "@pnp/sp/webs";
 import { ISharePointBaseRepository } from "./ISharePointBaseRepository";
-import { IListItem, IPetListItem } from "../Common/IListItem";
+import { IInvoiceListItem, IPetListItem } from "../Common/IListItem";
 import IQueryOption from "../Common/IQueryOption";
 
-export default class SharePointRepository<T extends IListItem | IPetListItem> implements ISharePointBaseRepository<T>{
+export default class SharePointRepository<T extends IInvoiceListItem | IPetListItem> implements ISharePointBaseRepository<T>{
     protected _list: import("@pnp/sp/lists").IList;
     protected _web: import("@pnp/sp/webs").IWeb;
     protected _sp: SPFI;

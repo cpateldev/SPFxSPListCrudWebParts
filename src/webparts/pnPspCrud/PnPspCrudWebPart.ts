@@ -8,7 +8,7 @@ import { Web } from "@pnp/sp/webs";
 
 import { GraphFI } from "@pnp/graph";
 import styles from "./PnPspCrudWebPart.module.scss";
-import { IListItem, IPetListItem } from "../Common/IListItem";
+import { IInvoiceListItem, IPetListItem } from "../Common/IListItem";
 import SharePointRepository from "../Repository/SharePointRepository";
 
 export interface IPnPspCrudWebPartProps {}
@@ -98,7 +98,7 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
     }
 
     // Call _sp instance's get the item by Id
-    const sourceItem: IListItem = await _sp.web.lists
+    const sourceItem: IInvoiceListItem = await _sp.web.lists
       .getByTitle("Invoices")
       .items.getById(1)();      
 
@@ -109,10 +109,7 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
     }
 
     // Call the SharePointRepository class to get one
-    const sourceItem1: IListItem = await new SharePointRepository<IListItem>(
-      _sp,
-      "Invoices"
-    ).getOne(1);
+    const sourceItem1: IInvoiceListItem = await new SharePointRepository<IInvoiceListItem>(_sp, "Invoices").getOne(1);
 
     Log.info(LOG_SOURCE, "Success");
     if (!!sourceItem1) {
@@ -121,10 +118,11 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
     }
 
     // Call the SharePointRepository class to get one with query options
-    const sourceItem2: IListItem = await new SharePointRepository<IListItem>(
-      _sp,
-      "Invoices"
-    ).getOne(1, { select: ["Title", "Amount"] });
+    const sourceItem2: IInvoiceListItem =
+      await new SharePointRepository<IInvoiceListItem>(_sp, "Invoices").getOne(1, { select: ["Title", "Amount"] });
+
+      // Call the SharePointRepository class to get one with query options like select and expand
+      // await new SharePointRepository<IInvoiceListItem>(_sp, "Invoices").getOne(1, { select: ["Title", "Amount"], expand: ["Author"] });
     Log.info(LOG_SOURCE, "Success");
     if (!!sourceItem2) {
       Log.info(LOG_SOURCE, `Item Title: ${sourceItem2.Title}`);
@@ -146,12 +144,13 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
     });
 
     // Get all items
-    const sourceItems: IListItem[] = await new SharePointRepository<IListItem>(
-      _sp,
-      "Invoices"
-    ).getAll();
+    const sourceItems: IInvoiceListItem[] =
+      await new SharePointRepository<IInvoiceListItem>(
+        _sp,
+        "Invoices"
+      ).getAll();
     if (!!sourceItems) {
-      sourceItems.forEach((item: IListItem) => {
+      sourceItems.forEach((item: IInvoiceListItem) => {
         Log.info(LOG_SOURCE, `Item Title: ${item.Title}`);
         this.domElement.innerHTML += `<div class="${styles.pnPspCrud}">Item Title: ${item.Title}</div>`;
       });
@@ -161,14 +160,14 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
     const camlQuery = {
       ViewXml: `<View><Query><Where><Eq><FieldRef Name='Title'/><Value Type='Text'>Invoice 1</Value></Eq></Where></Query></View>`,
     };
-    const sourceItemsByCAML: IListItem[] =
-      await new SharePointRepository<IListItem>(
+    const sourceItemsByCAML: IInvoiceListItem[] =
+      await new SharePointRepository<IInvoiceListItem>(
         _sp,
         "Invoices"
       ).getItemsByCAMLQuery(camlQuery);
 
     if (!!sourceItemsByCAML) {
-      sourceItemsByCAML.forEach((item: IListItem) => {
+      sourceItemsByCAML.forEach((item: IInvoiceListItem) => {
         Log.info(LOG_SOURCE, `Item Title: ${item.Title}`);
         this.domElement.innerHTML += `<div class="${styles.pnPspCrud}">Item Title: ${item.Title}</div>`;
       });

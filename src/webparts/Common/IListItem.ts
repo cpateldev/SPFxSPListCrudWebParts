@@ -1,4 +1,4 @@
-export interface IListItem {
+export interface IInvoiceListItem {
     ID: number;
     Title: string;
     Amount?: number;
