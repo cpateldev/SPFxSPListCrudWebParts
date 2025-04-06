@@ -27,7 +27,7 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
         Log.info(LOG_SOURCE, "Rendered");
       })
       .catch((e) => {
-        console.error(e.message + e.stack);
+        console.error(`${e.message} ${e.stack}`);
         Log.error(LOG_SOURCE, e.message + e.stack);
       });
     //this.domElement.innerHTML = `<div class="${ styles.pnPspCrud }"></div>`;
@@ -63,8 +63,7 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
     without line ".using(SPFx(this.context))" you will get the error 'Error: No observers registered for this request. (https://pnp.github.io/pnpjs/queryable/queryable#no-observers-registered-for-this-request)'
     */
     try {
-      const weburl =
-        "https://m365devlab01.sharepoint.com/sites/PowerPlatformDev";
+      const weburl = "https://m365devlab01.sharepoint.com/sites/PowerPlatformDev";
       //const _web = Web(weburl).using(SPFx(this.context)); // Approach 1: requires - import { SPFI } from "@pnp/sp";
       const _web = Web([_sp.web, weburl]); // Approach 2: recommended. No need to import SPFI
 
