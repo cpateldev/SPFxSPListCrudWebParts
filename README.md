@@ -69,6 +69,10 @@ For more information about SPFx compatibility, please refer to <https://aka.ms/s
 - [SharePoint Framework](https://aka.ms/spfx)
 - [Microsoft 365 tenant](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
 
+
+> Get your own free development tenant by subscribing to [Microsoft 365 developer program](http://aka.ms/o365devprogram)
+
+
 ## Authors
 
 **Chirag Patel**
@@ -79,13 +83,12 @@ For more information about SPFx compatibility, please refer to <https://aka.ms/s
 |--------|-- | --------|
 | 1.0.1 | March 30, 2025 | Initial Release |
 
-> Get your own free development tenant by subscribing to [Microsoft 365 developer program](http://aka.ms/o365devprogram)
-
 ---
 
 ## Minimal Path to Awesome
 
 ### Install react and reactdom packages
+
 > [!IMPORTANT]
 >
 > **`react@17.0.1 react-dom@17.0.1`** are required version for SPFx 1.20.1 compatibility
@@ -241,14 +244,3 @@ OR for multiple scopes
 **THIS CODE IS PROVIDED _AS IS_ WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
 
 [Go to TOC](#table-of-contents)
-
-## Sample Mermaid Diagram
-
-```mermaid
-graph TD;
-  A[Start] --> B{Is it working?};
-  B -- Yes --> C[Great!];
-  B -- No --> D[Check the code];
-  D --> E[Fix the issue];
-  E --> B;
-```
