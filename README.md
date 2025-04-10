@@ -46,22 +46,23 @@ This extension illustrates the following concepts:
 | Every SPFx version is only compatible with specific version(s) of Node.js. In order to be able to build this sample, please ensure that the version of Node on your workstation matches one of the versions listed in this section. This sample will not work on a different version of Node.|
 |Refer to <https://aka.ms/spfx-matrix> for more information on SPFx compatibility.   |
 
-![SPFx 1.20.0](https://img.shields.io/badge/SPFx-1.20.0-green.svg)
-![Node.js v18](https://img.shields.io/badge/Node.js-v18-green.svg)
-![Compatible with SharePoint Online](https://img.shields.io/badge/SharePoint%20Online-Compatible-green.svg)
-![Incompatible with SharePoint 2019](https://img.shields.io/badge/SharePoint%20Server%202019-Incompatible-red.svg)
-![Does not work with SharePoint 2016 (Feature Pack 2)](https://img.shields.io/badge/SharePoint%20Server%202016%20(Feature%20Pack%202)-Incompatible-red.svg "SharePoint Server 2016 Feature Pack 2 requires SPFx 1.1")
-![Local Workbench compatible](https://img.shields.io/badge/Local%20Workbench-compatible-green.svg)
-![Hosted Workbench Compatible](https://img.shields.io/badge/Hosted%20Workbench-Compatible-green.svg)
+![SPFx 1.20.0](https://img.shields.io/badge/SPFx-1.20.0-blue.svg?style=for-the-badge)
+![Node.js v18](https://img.shields.io/badge/Node.js-v18-darkgreen.svg?style=for-the-badge)
+![Compatible with SharePoint Online](https://img.shields.io/badge/SharePoint%20Online-Compatible-green.svg?style=for-the-badge)
+![Incompatible with SharePoint 2019](https://img.shields.io/badge/SharePoint%20Server%202019-Incompatible-red.svg?style=for-the-badge)
+![Does not work with SharePoint 2016 (Feature Pack 2)](https://img.shields.io/badge/SharePoint%20Server%202016%20(Feature%20Pack%202)-Incompatible-red.svg?style=for-the-badge "SharePoint Server 2016 Feature Pack 2 requires SPFx 1.1")
+![Local Workbench compatible](https://img.shields.io/badge/Local%20Workbench-compatible-green.svg?style=for-the-badge)
+![Hosted Workbench Compatible](https://img.shields.io/badge/Hosted%20Workbench-Compatible-green.svg?style=for-the-badge)
 
 ### Github repo
-![Git Repo Status](https://img.shields.io/github/checks-status/:user/:repo/:branch)
+![Git Repo Status](https://img.shields.io/github/checks-status/:user/:repo/:branch?style=for-the-badge)
 
 For more information about SPFx compatibility, please refer to <https://aka.ms/spfx-matrix>
 
 ## Prerequisites
 
-![SPFx Version](https://img.shields.io/badge/SPFx%20Version-1.12.0-526cfe.svg) ![Node Version:](https://img.shields.io/badge/Node%20Version-18.20.4-417e38.svg)
+![SPFx 1.20.0](https://img.shields.io/badge/SPFx-1.20.0-blue.svg?style=for-the-badge)
+![Node.js v18](https://img.shields.io/badge/Node.js-v18-darkgreen.svg?style=for-the-badge)
 
 ## Applies to
 
@@ -70,9 +71,7 @@ For more information about SPFx compatibility, please refer to <https://aka.ms/s
 
 ## Authors
 
-| Author(s)      |
-| -------------- |
-| Chirag Patel |
+**Chirag Patel**
 
 ## Version history
 
