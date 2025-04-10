@@ -215,6 +215,19 @@ OR for multiple scopes
 🎯 .yo-rc.json - Yeoman configuration file.
 
 ```
+### SPFx Assets locations
+
+> **Tenant App Catalog**
+>
+> https://`<tenant>`.sharepoint.com/sites/`appcatalog`/_layouts/15/tenantAppCatalog.aspx/manageApps
+>
+> **ClientSide Assets library:**
+>
+> https://`<tenant>`.sharepoint.com/sites/`<site name>`/**ClientSideAssets**
+>
+> **Component Manifests**
+>
+> https://`<tenant>`.sharepoint.com/sites/`<site name>`/**ComponentManifests**
 
 ## References
 
