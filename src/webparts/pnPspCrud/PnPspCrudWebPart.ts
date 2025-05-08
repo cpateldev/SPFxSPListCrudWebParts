@@ -63,6 +63,8 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
     without line ".using(SPFx(this.context))" you will get the error 'Error: No observers registered for this request. (https://pnp.github.io/pnpjs/queryable/queryable#no-observers-registered-for-this-request)'
     */
     try {
+      console.log("Manifest Version: " + this.manifest.version);
+      
       const weburl = "https://m365devlab01.sharepoint.com/sites/PowerPlatformDev";
       //const _web = Web(weburl).using(SPFx(this.context)); // Approach 1: requires - import { SPFI } from "@pnp/sp";
       const _web = Web([_sp.web, weburl]); // Approach 2: recommended. No need to import SPFI
@@ -71,7 +73,8 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
         .getByTitle("Pets")
         .items.getById(1)();
 
-      console.log("Pets Item Title: " + petsItem.Title);
+      console.log("Pets Item Title: " + petsItem.Title);      
+      
       if (!!petsItem) {
         Log.info(LOG_SOURCE, `Pets Item Title: ${petsItem.Title}`);
         this.domElement.innerHTML += `<div class="${styles.pnPspCrud}">Pets Item Title:: ${petsItem.Title}</div>`;
@@ -83,12 +86,49 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
         "Pets",
         weburl
       ).getOne(1);
-
-      Log.info(LOG_SOURCE, "Success");
-      if (!!petsItem1) {  
+      
+      if (!!petsItem1) {
         Log.info(LOG_SOURCE, `Pets Item Title: ${petsItem1.Title}`);
-        this.domElement.innerHTML += `<div class="${styles.pnPspCrud}">SPRepo > Pets Item Title:: ${petsItem1.Title} and Breed:: ${petsItem1.Breed} </div>`;
+        this.domElement.innerHTML += `<div class="${styles.pnPspCrud}">Pets Item Title:: ${petsItem1.Title}</div>`;
       }
+      // Call the SharePointRepository class to add a Pet item
+      const petsItemNew: IPetListItem = await new SharePointRepository<IPetListItem>(
+        _sp,
+        "Pets",
+        weburl
+      ).add({
+        Title: "Lucky",
+        Breed: "Labrador",
+        Appointment: new Date("2023-10-01T00:00:00Z"),
+        PetSpecies: "Dog"
+      });
+    
+      if (!!petsItemNew) {
+        Log.info(LOG_SOURCE, `Pets Item Title: ${petsItemNew.Title}`);
+        this.domElement.innerHTML += `<div class="${styles.pnPspCrud}">New Pets Item > Title:: ${petsItemNew.Title} and Breed:: ${petsItemNew.Breed}</div>`;
+      }
+
+      // Call the SharePointRepository class to update a Pet item
+      await new SharePointRepository<IPetListItem>(
+        _sp,
+        "Pets",
+        weburl
+      ).update({
+        ID: petsItemNew.ID,
+        Title: "Lucky",
+        Breed: "Chihuahua",
+        Appointment: new Date("2023-10-01T00:00:00Z"),
+        PetSpecies: "Dog",
+      });
+      
+      console.log("Pets Item updated: " + petsItemNew.Title);
+      // Call the SharePointRepository class to delete a Pet item
+      await new SharePointRepository<IPetListItem>( 
+        _sp,
+        "Pets",
+        weburl
+      ).delete(petsItemNew.ID);
+      console.log("Pets Item deleted: " + petsItemNew.Title);
 
     } catch (error) {
       console.error(error);

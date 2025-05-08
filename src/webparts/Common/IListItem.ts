@@ -9,4 +9,6 @@ export interface IPetListItem {
   ID: number;
   Title: string;
   Breed: string;
+  Appointment: Date;
+  PetSpecies: string;
 }

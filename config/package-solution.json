@@ -3,7 +3,7 @@
   "solution": {
     "name": "sp-fx-sp-list-crud-web-parts-client-side-solution",
     "id": "761ba7eb-e698-405b-84ae-d9dfe64539a9",
-    "version": "1.0.0.0",
+    "version": "1.0.2.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
