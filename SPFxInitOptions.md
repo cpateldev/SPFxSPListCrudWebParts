@@ -438,6 +438,7 @@ Here are the specific contexts for SPFx extensions:
 - **Usage:** Used for Field Customizers.
 - **Key Property:** `field` (provides metadata about the field being customized).
 - **Example:**
+
   ```typescript
   import { FieldCustomizerContext } from "@microsoft/sp-listview-extensibility";
 
@@ -568,3 +569,60 @@ export const getGraph = (context: AdaptiveCardExtensionContext): GraphFI => {
 - Use `AdaptiveCardExtensionContext` when working with Adaptive Card Extensions in Viva Connections.
 - It is specifically designed for ACEs and provides properties like `cardNavigator` that are not available in other contexts.
 - If you are using PnPJS in ACEs, you can pass `AdaptiveCardExtensionContext` to methods expecting `ISPFXContext`, as it is compatible.
+
+
+### **When to Use `WebPartContext`**
+
+`WebPartContext` is a specific context provided by SPFx for **web parts**. It is part of the `@microsoft/sp-webpart-base` package and is designed to provide properties and methods that are specific to web parts.
+
+---
+
+### **Use Cases for `WebPartContext`**
+1. **SPFx Web Parts Only**:
+   - Use `WebPartContext` when developing SPFx web parts, as it provides web part-specific properties and methods.
+
+2. **Accessing Web Part-Specific Properties**:
+   - `WebPartContext` includes properties like:
+     - `domElement`: The DOM element where the web part is rendered.
+     - `instanceId`: The unique ID of the web part instance.
+     - `manifest`: The manifest of the web part.
+     - `pageContext`: Provides contextual information about the current page.
+
+3. **PnPJS Integration**:
+   - Use `WebPartContext` when initializing PnPJS objects (`SPFI` or `GraphFI`) in web parts. For example:
+     ```typescript
+     import { WebPartContext } from "@microsoft/sp-webpart-base";
+     import { spfi, SPFI, SPFx } from "@pnp/sp";
+
+     let _sp: SPFI;
+
+     export const getSP = (context: WebPartContext): SPFI => {
+       if (!!context) {
+         _sp = spfi().using(SPFx(context));
+       }
+       return _sp;
+     };
+     ```
+
+4. **Custom Web Part Logic**:
+   - Use `WebPartContext` when you need to interact with the web part's DOM or manage web part-specific behavior.
+
+5. **Scenarios Where Extensions Are Not Needed**:
+   - If your solution is limited to web parts and does not involve SPFx extensions (e.g., Application Customizers, Field Customizers), `WebPartContext` is sufficient.
+
+---
+
+### **Comparison with Other Contexts**
+
+| **Aspect**                  | **WebPartContext**                     | **BaseComponentContext**             | **ISPFXContext**                     |
+|-----------------------------|----------------------------------------|--------------------------------------|--------------------------------------|
+| **Scope**                   | Specific to SPFx web parts            | Generic for all SPFx extensions      | Specific to PnPJS integration        |
+| **Key Features**            | `domElement`, `instanceId`, `manifest`| `serviceScope`, `pageContext`        | `spfxContext`                        |
+| **Usage**                   | For SPFx web parts                    | For SPFx extensions (generic)        | For initializing SPFI/GraphFI        |
+| **Flexibility**             | Low (Web Part-Specific)               | High (Generic)                       | Medium (PnPJS-Specific)              |
+
+---
+
+### **Conclusion**
+- Use `WebPartContext` when working exclusively with SPFx web parts.
+- For solutions that involve both web parts and extensions, consider using `BaseComponentContext` or `ISPFXContext` for better flexibility and reusability.
