@@ -36,7 +36,7 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
   protected onInit(): Promise<void> {
     // Initialize our _sp object that we can then use in other packages without having to pass around the context.
     // Check out pnpjsConfig.ts for an example of a project setup file.
-    _sp = getSP(this.context);
+    _sp = getSP(this.context);    
     _graph = getGraph(this.context);
     return super.onInit();
   }
@@ -52,10 +52,10 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
     Call another web's list item using PnPjs
     https://pnp.github.io/pnpjs/sp/webs/#access-a-web
 
-    The above examples show you how to use the constructor to create the base url for the Web although none of them are usable as is until you add observers. 
+    The below examples show you how to use the constructor to create the base url for the Web although none of them are usable as is until you add observers. 
     You can do so by either adding them explicitly with a using...
 
-    import { spfi, SPFx } from "@pnp/sp";
+    import { SPFi, SPFx } from "@pnp/sp";
     import { Web } from "@pnp/sp/webs";
 
     const web1 = Web("https://tenant.sharepoint.com/sites/myweb").using(SPFx(this.context));
@@ -66,7 +66,7 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
       console.log("Manifest Version: " + this.manifest.version);
       
       const weburl = "https://m365devlab01.sharepoint.com/sites/PowerPlatformDev";
-      //const _web = Web(weburl).using(SPFx(this.context)); // Approach 1: requires - import { SPFI } from "@pnp/sp";
+      //const _web = Web(weburl).using(SPFx(this.context)); // Approach 1: requires - import { SPFI, SPFx } from "@pnp/sp";
       const _web = Web([_sp.web, weburl]); // Approach 2: recommended. No need to import SPFI
 
       const petsItem: IPetListItem = await _web.lists
