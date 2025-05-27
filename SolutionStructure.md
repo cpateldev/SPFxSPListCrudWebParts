@@ -37,8 +37,7 @@
     │   │   │   └── 📝 PnpJsReactCrud.module.scss - Styling for the PnP JS CRUD component.
     │   │   ├── 📄 PnpJsReactCrudWebPart.ts - Entry file for the PnP JS CRUD web part.
     │   │   └── 📜 PnpJsReactCrudWebPart.manifest.json - Manifest file for the PnP JS CRUD web part.            
-    ├── 📄 index.ts - Main entry point for the project.
-    └── 📄 webparts.ts - Entry point for all web parts.
+    └───└── 📄 index.ts - Main entry point for the project.    
 
 👁️ .gitignore - Specifies files and directories to be ignored by Git.
 ⚡ gulpfile.js - Gulp tasks for build automation.
@@ -50,7 +49,6 @@
 ```
 
 ``` 
-
 my-spfx-webpart/  (📂 Project Root - Often shown with a generic project icon)
 ├── .yo-rc.json       (⚙️ Yo Generator Configuration - Looks like a gear or settings icon)
 ├── .gitignore       (🙈 Git Ignore File -  Often a transparent icon or an icon of git ignoring files)

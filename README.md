@@ -209,12 +209,13 @@ OR for multiple scopes
     ├── 📄 index.ts - Main entry point for the project.
     └── 📄 webparts.ts - Entry point for all web parts.
 
-👁️ .gitignore - Specifies files and directories to be ignored by Git.
+📝 .gitignore - Specifies files and directories to be ignored by Git.
+📝 .npmignore - Specifies files and directories to be ignored by npm during package installation.
 ⚡ gulpfile.js - Gulp tasks for build automation.
 📦 package.json - Project metadata and dependencies.
 📘 README.md - Project documentation.
-⚙️ tsconfig.json - TypeScript configuration file.
 🎯 .yo-rc.json - Yeoman configuration file.
+⚙️ tsconfig.json - TypeScript compiler configuration file that specifies root files and compiler options required to compile the project.
 
 ```
 ### SPFx Assets locations

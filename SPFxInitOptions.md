@@ -405,13 +405,8 @@ export const getSP = (context: ApplicationCustomizerContext): SPFI => {
 - Use specific contexts like `ApplicationCustomizerContext` or `FieldCustomizerContext` when working with a particular type of extension.
 - Use `ISPFXContext` when initializing PnPJS objects, as it is specifically designed for that purpose.
 
-cpateldev: What about ExtensionContext?
-
-GitHub Copilot: In SPFx, there is no specific `ExtensionContext` class. Instead, SPFx provides specialized contexts for each type of extension, all of which inherit from the generic `BaseComponentContext`. These specialized contexts include additional properties and methods specific to the type of extension.
-
-Here are the specific contexts for SPFx extensions:
-
 ---
+**Here are the specific contexts for SPFx extensions:**
 
 ### **1. Application Customizer Context**
 - **Class:** `ApplicationCustomizerContext`
