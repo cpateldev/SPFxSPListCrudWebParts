@@ -1,25 +1,30 @@
 # SPFx SPO List CRUD Web Parts
 
 ## Table of Contents
-- [Summary](#summary)
-- [Features](#features)
-- [Compatibility](#compatibility)
-- [Prerequisites](#prerequisites)
-- [Applies to](#applies-to)
-- [Authors](#authors)
-- [Version history](#version-history)
-- [Minimal Path to Awesome](#minimal-path-to-awesome)
-  - [Install react and reactdom packages](#install-react-and-reactdom-packages)
-- [Debugging](#debugging)
-- [Solution Structure](#solution-structure)
-- [References](#references)
-- [Disclaimer](#disclaimer)
+- [SPFx SPO List CRUD Web Parts](#spfx-spo-list-crud-web-parts)
+  - [Table of Contents](#table-of-contents)
+  - [Summary](#summary)
+  - [Features](#features)
+  - [Compatibility](#compatibility)
+  - [Prerequisites](#prerequisites)
+  - [Applies to](#applies-to)
+  - [Authors](#authors)
+  - [Version history](#version-history)
+  - [Minimal Path to Awesome](#minimal-path-to-awesome)
+    - [Install react and reactdom packages](#install-react-and-reactdom-packages)
+  - [Debugging](#debugging)
+  - [Graph API Permissions](#graph-api-permissions)
+    - [For this solution,](#for-this-solution)
+    - [For multiple scopes](#for-multiple-scopes)
+    - [OR if domain isolated flag is true in package solution file.](#or-if-domain-isolated-flag-is-true-in-package-solution-file)
+  - [Solution Structure](#solution-structure)
+    - [SPFx Assets locations](#spfx-assets-locations)
+  - [References](#references)
+  - [Disclaimer](#disclaimer)
 
 ## Summary
 
 This project contains SharePoint Framework (SPFx) web parts that demonstrate CRUD (Create, Read, Update, Delete) operations on SharePoint Online lists. The web parts are built using React and leverage the SharePoint REST API to interact with list data. These examples showcase how to perform basic data manipulation tasks within a SharePoint Online environment, providing a practical reference for developers looking to implement similar functionality in their own SPFx solutions.
-
-[picture of the solution in action, if possible]
 
 ## Features
 
@@ -49,13 +54,12 @@ This extension illustrates the following concepts:
 ![SPFx 1.20.0](https://img.shields.io/badge/SPFx-1.20.0-blue.svg?style=for-the-badge)
 ![Node.js v18](https://img.shields.io/badge/Node.js-v18-darkgreen.svg?style=for-the-badge)
 ![Compatible with SharePoint Online](https://img.shields.io/badge/SharePoint%20Online-Compatible-green.svg?style=for-the-badge)
-![Incompatible with SharePoint 2019](https://img.shields.io/badge/SharePoint%20Server%202019-Incompatible-red.svg?style=for-the-badge)
-![Does not work with SharePoint 2016 (Feature Pack 2)](https://img.shields.io/badge/SharePoint%20Server%202016%20(Feature%20Pack%202)-Incompatible-red.svg?style=for-the-badge "SharePoint Server 2016 Feature Pack 2 requires SPFx 1.1")
-![Local Workbench compatible](https://img.shields.io/badge/Local%20Workbench-compatible-green.svg?style=for-the-badge)
 ![Hosted Workbench Compatible](https://img.shields.io/badge/Hosted%20Workbench-Compatible-green.svg?style=for-the-badge)
 
-### Github repo
-![Git Repo Status](https://img.shields.io/github/checks-status/:user/:repo/:branch?style=for-the-badge)
+![SP2019](https://img.shields.io/badge/SharePoint%20Server%202019-Incompatible-red.svg?style=for-the-badge)
+![SP 2016 (Feature Pack 2)](https://img.shields.io/badge/SharePoint%20Server%202016%20(Feature%20Pack%202)-Incompatible-red.svg?style=for-the-badge "SharePoint Server 2016 Feature Pack 2 requires SPFx 1.1")
+![Local Workbench](https://img.shields.io/badge/Local%20Workbench-Not%20Supported-red.svg?style=for-the-badge)
+
 
 For more information about SPFx compatibility, please refer to <https://aka.ms/spfx-matrix>
 
@@ -122,18 +126,25 @@ npm install @pnp/sp --save
 >```URL
 > https://m365devlab01.sharepoint.com/sites/M365AppDev/_layouts/workbench.aspx
 >```
-### Graph API Permissions
-```
-// for this solution.
+
+## Graph API Permissions
+
+Permissions are defined in `package-solution.json` file to grant graph api access level.
+
+### For this solution, 
+
+```json
 "webApiPermissionRequests": [
   {
     "resource": "Microsoft Graph",
     "scope": "User.Read.All"
   }
 ]
+```
 
-OR for multiple scopes
+### For multiple scopes
 
+```json
     "webApiPermissionRequests": [
       {
         "resource": "Microsoft Graph",
@@ -152,9 +163,11 @@ OR for multiple scopes
         "scope": "Group.Read.All"
     }
   ]
+ ```
  
- OR if domain isolated flag is true in package solution file.
+ ### OR if domain isolated flag is true in package solution file.
 
+```json
 "isDomainIsolated": true,
     "webApiPermissionRequests": [
       {
