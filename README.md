@@ -85,7 +85,7 @@ For more information about SPFx compatibility, please refer to <https://aka.ms/s
 
 |Version|Date| Comments|
 |--------|-- | --------|
-| 1.0.1 | March 30, 2025 | Initial Release |
+| 1.0.2 | March 30, 2025 | Initial Release |
 
 ---
 
