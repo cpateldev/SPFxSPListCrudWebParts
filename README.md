@@ -33,7 +33,7 @@ This solution contains two webparts
 1. PnPJS SP CRUD
 2. PnPJS React CRUD
 
-This extension illustrates the following concepts:
+This SPFx webpart(s) solution illustrates the following concepts:
 
 - How to use getsp and getgraph modules to centrally create _sp and _graph objects using common context
 - How to perform CRUD operations using pnpjs sp api on sample SP List
@@ -217,7 +217,10 @@ Permissions are defined in `package-solution.json` file to grant graph api acces
     │   │   │   ├── ⚛️ PnpJsReactCrud.tsx - Main React component for the PnP JS CRUD operations.
     │   │   │   └── 📝 PnpJsReactCrud.module.scss - Styling for the PnP JS CRUD component.
     │   │   ├── 📄 PnpJsReactCrudWebPart.ts - Entry file for the PnP JS CRUD web part.
-    │   │   └── 📜 PnpJsReactCrudWebPart.manifest.json - Manifest file for the PnP JS CRUD web part.            
+    │   │   └── 📜 PnpJsReactCrudWebPart.manifest.json - Manifest file for the PnP JS CRUD web part.
+    │   ├── 📁 Repository/
+    │   │   ├── 📝 ISharePointBaseRepository.ts - SharePoint Base Repository interface file.
+    │   │   ├── 📝 SharePointBaseRepository.ts - SharePoint Base Repository concrete class file.
     ├── 📄 index.ts - Main entry point for the project.
     └── 📄 webparts.ts - Entry point for all web parts.
 
@@ -245,7 +248,7 @@ Permissions are defined in `package-solution.json` file to grant graph api acces
 > https://`<tenant>`.sharepoint.com/sites/`<site name>`/**ComponentManifests**
 
 ## References
-
+From
 - [Getting started with SharePoint Framework](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
 - [Building for Microsoft teams](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/build-for-teams-overview)
 - [Use Microsoft Graph in your solution](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/using-microsoft-graph-apis)
