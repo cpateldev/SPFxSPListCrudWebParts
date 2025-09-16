@@ -5,8 +5,13 @@
 Workspace: Here’s a detailed comparison of the different approaches used to initialize **SPFx** and **Graph** objects in your project, based on the provided files.
 
 ## Mermaid diagram (SPFx Contexts relationship)
+
+> This diagram requires VSCode extention - "Markdown Preview Mermaid Support"
+
 ```mermaid
+
 classDiagram
+  note for BaseComponentContext "SPFx"
   class BaseComponentContext {
 	    +serviceScope: ServiceScope
 	    +pageContext: PageContext
@@ -30,8 +35,16 @@ classDiagram
         <<Internal>>
     }
 
-	  class SearchQueryModifierContext {
+    class WebPartContext {
+      +domElement(): HTMLElement
+    }
 
+	  class SearchQueryModifierContext {
+    }
+
+    note for ISPFXContext "PnPJS"
+    class ISPFXContext {
+      +pageContext: PageContext
     }
 
     BaseComponentContext <|-- ExtensionContext
@@ -50,6 +63,7 @@ classDiagram
     class ExtensionContext:::Sky
     class SearchQueryModifierContext:::Pine
     class WebPartContext:::Pine
+    class ISPFXContext:::Peach
 
     classDef Peach :, stroke-width:1px, stroke-dasharray:none, stroke:#FBB35A, fill:#FFEFDB, color:#8F632D
     classDef Sky :, stroke-width:1px, stroke-dasharray:none, stroke:#374D7C, fill:#E2EBFF, color:#374D7C
@@ -305,14 +319,37 @@ cpateldev: How BaseComponentContext is different from ISPFXContext? and Is there
 
 GitHub Copilot: ### **Difference Between `BaseComponentContext` and `ISPFXContext`**
 
+In SharePoint Framework (SPFx) development,  and  serve related but distinct roles. The primary difference is that  is a base class in the SPFx API, while  is a property interface used by helper libraries like PnP.js.
+
+`BaseComponentContext`is the foundational class for all context objects within the SharePoint Framework. It is the base type for more specific contexts that SPFx components use, such as  and . 
+
+- Purpose: It's an internal class that provides a standardized set of core services and objects for any SPFx component to interact with its host environment. 
+- Inheritance: You never interact with  directly. Instead, you use one of its subclasses: 
+
+	- The context for client-side web parts. 
+	-  (and its specialized versions like ): The context for client-side extensions. 
+
+- Usage: In your SPFx component's code, you access the context through the  property. Its type will be the specialized subclass, which provides access to all the properties from  plus any additional ones specific to that component type. [1, 2, 4, 5]  
+
+`ISPFXContext` is an interface used by external utility libraries, most notably PnP.js, to abstract away the differences between various SPFx component contexts. 
+
+- Purpose: The PnP.js library and other third-party tools need a reliable way to get access to core SPFx services like the  and the HTTP client factories (, ). Since a tool can be used inside a web part or an extension, it cannot assume it will always receive a  or an .  provides a generic interface that defines the necessary properties. 
+- Usage: When you use a library like PnP.js, you'll pass your component's  property to it, but you may need to cast it as  to satisfy the library's type requirements. This is a common practice to resolve TypeScript compiler errors. 
+- Relationship to BaseComponentContext:  is essentially a type that defines a subset of the properties and methods available on all the classes that inherit from . [6, 7, 8, 9, 10]  
+
+**Comparison summary**
+
 | **Aspect**                  | **`BaseComponentContext`**                                      | **`ISPFXContext`**                                      |
 |-----------------------------|---------------------------------------------------------------|-------------------------------------------------------|
+| **Type**                        | A base class in the SharePoint Framework API.                        | A TypeScript interface used by third-party       |
 | **Definition**              | A generic context provided by SPFx for all extensions.         | A specific interface provided by PnPJS for SPFx integration. |
+| **Role** | The parent for all SPFx component context objects. It's the "official" way to access services from within your SPFx component. | A contract for utility libraries (like PnP.js) to consume key services from any SPFx context.                               |
 | **Source**                  | Comes from `@microsoft/sp-component-base`.                     | Comes from `@pnp/sp`.                                 |
 | **Usage**                   | Used for SPFx extensions like Application Customizers, Field Customizers, and Command Sets. | Used for initializing PnPJS objects (SPFI/GraphFI) in SPFx. |
 | **Scope**                   | Broader scope, works for all SPFx extensions.                  | Narrower scope, specific to PnPJS integration.        |
 | **Properties**              | Provides properties like `serviceScope`, `pageContext`, etc., which are common to all SPFx extensions. | Provides properties required for PnPJS initialization, such as `spfxContext`. |
 | **Flexibility**             | Can be used for both SPFx extensions and web parts.            | Primarily used for PnPJS configuration in SPFx.       |
+| **Example**                 | Accessing the web part context: .                              | Passing the context to PnP.                            |
 
 ---
 
