@@ -32,3 +32,100 @@
     }
   }
 }
+
+.grid {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+}
+
+.error {
+    color: red;
+}
+
+.actions {
+  button {
+    margin-right: 5px;
+    cursor: pointer;
+  }
+}
+
+.toolbar {
+  margin-bottom: 10px;
+
+  button {
+    cursor: pointer;
+  }
+}
+
+.formOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.form {
+  background: "[theme:bodyBackground, default: #ffffff]";
+  color: "[theme:bodyText, default: #323130]";
+  padding: 20px;
+  border-radius: 5px;
+  min-width: 400px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+
+  h3 {
+    margin-top: 0;
+  }
+
+  div {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid "[theme:inputBorder, default: #c8c8c8]";
+    border-radius: 3px;
+  }
+}
+
+.formButtons {
+  text-align: right;
+  margin-top: 20px;
+
+  button {
+    margin-left: 10px;
+    cursor: pointer;
+    padding: 8px 16px;
+  }
+}

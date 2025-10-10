@@ -68,11 +68,12 @@ export default class PnPspCrudWebPart extends BaseClientSideWebPart<IPnPspCrudWe
       const weburl = "https://m365devlab01.sharepoint.com/sites/PowerPlatformDev";
       //const _web = Web(weburl).using(SPFx(this.context)); // Approach 1: requires - import { SPFI, SPFx } from "@pnp/sp";
       const _web = Web([_sp.web, weburl]); // Approach 2: recommended. No need to import SPFI
-
+      
       const petsItem: IPetListItem = await _web.lists
         .getByTitle("Pets")
         .items.getById(1)();
-
+      
+      
       console.log("Pets Item Title: " + petsItem.Title);      
       
       if (!!petsItem) {

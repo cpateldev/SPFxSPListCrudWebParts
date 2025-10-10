@@ -12,15 +12,17 @@ import * as strings from 'PnpJsReactCrudWebPartStrings';
 import PnpJsReactCrud from './components/PnpJsReactCrud';
 import { IPnpJsReactCrudProps } from './components/IPnpJsReactCrudProps';
 
+import { getSP } from "../pnpJSConfig"; // Adjust path if needed
+import { SPFI } from "@pnp/sp";
 export interface IPnpJsReactCrudWebPartProps {
   description: string;
 }
 
 export default class PnpJsReactCrudWebPart extends BaseClientSideWebPart<IPnpJsReactCrudWebPartProps> {
-
-  private _isDarkTheme: boolean = false;
-  private _environmentMessage: string = '';
-
+  private _sp: SPFI;
+  private _isDarkTheme = false;
+  private _environmentMessage = '';
+  
   public render(): void {
     const element: React.ReactElement<IPnpJsReactCrudProps> = React.createElement(
       PnpJsReactCrud,
@@ -29,7 +31,8 @@ export default class PnpJsReactCrudWebPart extends BaseClientSideWebPart<IPnpJsR
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        userDisplayName: this.context.pageContext.user.displayName,
+        sp: this._sp
       }
     );
 
@@ -39,6 +42,8 @@ export default class PnpJsReactCrudWebPart extends BaseClientSideWebPart<IPnpJsR
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
       this._environmentMessage = message;
+      this._sp = getSP(this.context);
+      return super.onInit();
     });
   }
 
@@ -61,7 +66,6 @@ export default class PnpJsReactCrudWebPart extends BaseClientSideWebPart<IPnpJsR
             default:
               environmentMessage = strings.UnknownEnvironment;
           }
-
           return environmentMessage;
         });
     }
@@ -75,16 +79,19 @@ export default class PnpJsReactCrudWebPart extends BaseClientSideWebPart<IPnpJsR
     }
 
     this._isDarkTheme = !!currentTheme.isInverted;
-    const {
-      semanticColors
-    } = currentTheme;
+    const { semanticColors } = currentTheme;
 
     if (semanticColors) {
-      this.domElement.style.setProperty('--bodyText', semanticColors.bodyText || null);
-      this.domElement.style.setProperty('--link', semanticColors.link || null);
-      this.domElement.style.setProperty('--linkHovered', semanticColors.linkHovered || null);
+      this.domElement.style.setProperty(
+        "--bodyText",
+        semanticColors.bodyText || null
+      );
+      this.domElement.style.setProperty("--link", semanticColors.link || null);
+      this.domElement.style.setProperty(
+        "--linkHovered",
+        semanticColors.linkHovered || null
+      );
     }
-
   }
 
   protected onDispose(): void {
@@ -92,7 +99,7 @@ export default class PnpJsReactCrudWebPart extends BaseClientSideWebPart<IPnpJsR
   }
 
   protected get dataVersion(): Version {
-    return Version.parse('1.0');
+    return Version.parse("1.0");
   }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
@@ -100,20 +107,20 @@ export default class PnpJsReactCrudWebPart extends BaseClientSideWebPart<IPnpJsR
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: strings.PropertyPaneDescription,
           },
           groups: [
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
-                })
-              ]
-            }
-          ]
-        }
-      ]
+                PropertyPaneTextField("description", {
+                  label: strings.DescriptionFieldLabel,
+                }),
+              ],
+            },
+          ],
+        },
+      ],
     };
   }
 }
