@@ -40,14 +40,24 @@ export default class PnpJsReactCrudWebPart extends BaseClientSideWebPart<IPnpJsR
   }
 
   protected onInit(): Promise<void> {
-    return this._getEnvironmentMessage().then(message => {
+    
+    this.loadEnvironmentMessage();
+
+    // Initialize our _sp object that we can then use in other packages without having to pass around the context.
+    // If you need to use _sp in other methods, assign it to the class property
+    this._sp = getSP(this.context);
+    return super.onInit();
+  }
+
+  private loadEnvironmentMessage(): void {
+    this._getEnvironmentMessage().then(message => {
       this._environmentMessage = message;
-      this._sp = getSP(this.context);
-      return super.onInit();
+    }).catch(err => {
+      console.error("Error getting environment message: ", err);
     });
   }
 
-  private _getEnvironmentMessage(): Promise<string> {
+  private async _getEnvironmentMessage(): Promise<string> {
     if (!!this.context.sdks.microsoftTeams) { // running in Teams, office.com or Outlook
       return this.context.sdks.microsoftTeams.teamsJs.app.getContext()
         .then(context => {
