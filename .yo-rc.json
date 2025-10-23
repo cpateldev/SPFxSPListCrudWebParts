@@ -12,7 +12,7 @@
       "@microsoft/microsoft-graph-client": "3.0.2",
       "@microsoft/teams-js": "2.24.0"
     },
-    "version": "1.20.0",
+    "version": "1.21.1",
     "libraryName": "sp-fx-sp-list-crud-web-parts",
     "libraryId": "761ba7eb-e698-405b-84ae-d9dfe64539a9",
     "environment": "spo",
