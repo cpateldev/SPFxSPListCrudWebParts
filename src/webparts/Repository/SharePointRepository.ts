@@ -1,11 +1,11 @@
 import { SPFI } from "@pnp/sp";
 import { Web } from "@pnp/sp/webs";
 import { ISharePointBaseRepository } from "./ISharePointBaseRepository";
-import { IInvoiceListItem, IPetListItem } from "../Common/IListItem";
+import { IListItem } from "../Common/IListItem";
 import IQueryOption from "../Common/IQueryOption";
 import "@pnp/sp/items";
 
-export default class SharePointRepository<T extends IInvoiceListItem | IPetListItem>
+export default class SharePointRepository<T extends IListItem>
   implements ISharePointBaseRepository<T>
 {
   protected _list: import("@pnp/sp/lists").IList;
@@ -80,5 +80,19 @@ export default class SharePointRepository<T extends IInvoiceListItem | IPetListI
   // Remove an entity
   public async delete(id: number): Promise<void> {
     return this._list.items.getById(id).delete();
+  }
+
+  //Check list permission for a given user login name
+  public async checkListPermission(
+    loginName: string,
+    permission: import("@pnp/sp/security").PermissionKind
+  ): Promise<boolean> {
+    const user = await this._web.siteUserInfoList.items.filter(`LoginName eq '${loginName}'`)();
+    if (user.length === 0) {
+      throw new Error(`User with login name ${loginName} not found.`);
+    }
+    const effectivePermissions =
+      await this._list.getUserEffectivePermissions(user[0].Id);
+    return this._web.hasPermissions(effectivePermissions, permission);
   }
 }
