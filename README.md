@@ -6,7 +6,6 @@
   - [Summary](#summary)
   - [Features](#features)
   - [Compatibility](#compatibility)
-  - [Prerequisites](#prerequisites)
   - [Applies to](#applies-to)
   - [Authors](#authors)
   - [Version history](#version-history)
@@ -50,8 +49,8 @@ This SPFx webpart(s) solution illustrates the following concepts:
 > Every SPFx version is only compatible with specific version(s) of Node.js. In order to be able to build this sample, please ensure that the version of Node on your workstation matches one of the versions listed in this section. This sample will not work on a different version of Node.|
 |Refer to <https://aka.ms/spfx-matrix> for more information on SPFx compatibility.   |
 
-![SPFx 1.20.0](https://img.shields.io/badge/SPFx-1.20.0-blue.svg?style=for-the-badge)
-![Node.js v18](https://img.shields.io/badge/Node.js-v18-darkgreen.svg?style=for-the-badge)
+![SPFx 1.21.1](https://img.shields.io/badge/SPFx-1.21.1-blue.svg?style=for-the-badge)
+![Node.js v22](https://img.shields.io/badge/Node.js-v22-darkgreen.svg?style=for-the-badge)
 ![Compatible with SharePoint Online](https://img.shields.io/badge/SharePoint%20Online-Compatible-green.svg?style=for-the-badge)
 ![Hosted Workbench Compatible](https://img.shields.io/badge/Hosted%20Workbench-Compatible-green.svg?style=for-the-badge)
 
@@ -61,11 +60,6 @@ This SPFx webpart(s) solution illustrates the following concepts:
 
 
 For more information about SPFx compatibility, please refer to <https://aka.ms/spfx-matrix>
-
-## Prerequisites
-
-![SPFx 1.20.0](https://img.shields.io/badge/SPFx-1.20.0-blue.svg?style=for-the-badge)
-![Node.js v18](https://img.shields.io/badge/Node.js-v18-darkgreen.svg?style=for-the-badge)
 
 ## Applies to
 
@@ -94,7 +88,7 @@ For more information about SPFx compatibility, please refer to <https://aka.ms/s
 
 > [!IMPORTANT]
 >
-> **`react@17.0.1 react-dom@17.0.1`** are required version for SPFx 1.20.1 compatibility
+> **`react@17.0.1 react-dom@17.0.1`** are required version for SPFx 1.21.1 compatibility
 
 ```PowerShell
 npm i react@17.0.1 react-dom@17.0.1 --save-exact
